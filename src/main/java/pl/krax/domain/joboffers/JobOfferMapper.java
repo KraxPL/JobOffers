@@ -10,16 +10,19 @@ class JobOfferMapper {
                 .id(jobOffer.id())
                 .title(jobOffer.title())
                 .content(jobOffer.content())
-                .wage(jobOffer.wage())
+                .wage(jobOffer.salary())
+                .url(jobOffer.url())
                 .build();
     }
+
     public static JobOffer mapFromJobOfferDto(JobOfferDto jobOfferDto){
         return JobOffer.builder()
                 .id(jobOfferDto.id())
                 .title(jobOfferDto.title())
                 .content(jobOfferDto.content())
-                .wage(jobOfferDto.wage())
-                .created(LocalDateTime.now())
+                .salary(jobOfferDto.wage())
+                .url(jobOfferDto.url())
                 .build();
     }
 }
+

@@ -1,24 +1,31 @@
 package pl.krax.domain.joboffers;
 
+import lombok.Getter;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class JobOfferRepositoryTestImplementation implements JobOffersRepositoryInterface{
+    @Getter
     private final Map<String, JobOffer> jobOfferList = new ConcurrentHashMap<>();
 
     @Override
-    public JobOffer save(JobOffer jobOffer) {
-        jobOfferList.put(String.valueOf(jobOffer.id()), jobOffer);
-        return jobOffer;
+    public JobOffer findJobOfferById(Long id) {
+        return null;
     }
 
     @Override
-    public Collection<JobOffer> findAll() {
-        return (Collection<JobOffer>) jobOfferList;
+    public void saveJobOffer(JobOffer jobOffer) {
+
     }
 
     @Override
-    public JobOffer findById(Long id) {
-        return jobOfferList.get(String.valueOf(id));
+    public List<JobOffer> getAllOffers() {
+        return null;
+    }
+
+    @Override
+    public boolean existsByUrl(String url) {
+        return false;
     }
 }

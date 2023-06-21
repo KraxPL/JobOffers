@@ -2,7 +2,8 @@ package pl.krax.domain.joboffers;
 
 
 import lombok.Builder;
+import lombok.Getter;
 
-import java.time.LocalDateTime;
 @Builder
-record JobOffer (Long id, String title, String content, String wage, LocalDateTime created) {}
+@Getter
+record JobOffer (Long id, String title, String content, String salary, String url) {}

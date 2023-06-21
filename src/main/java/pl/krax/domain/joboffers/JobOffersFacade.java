@@ -1,28 +1,34 @@
 package pl.krax.domain.joboffers;
 
 import lombok.AllArgsConstructor;
-import pl.krax.domain.joboffers.dto.JobOfferDto;
-
-import java.util.Collection;
+import org.springframework.dao.DuplicateKeyException;
 import java.util.List;
 
 @AllArgsConstructor
 public class JobOffersFacade {
-    private final JobOffersRepositoryInterface repository;
+    private final JobOffersRepositoryInterface jobOfferRepository;
+    private final JobOfferServiceInterface jobOfferServiceInterface;
 
-    public List<JobOfferDto> findAllOffers() {
-        Collection<JobOffer> jobOffers = repository.findAll();
-        return jobOffers.stream()
-                .map(JobOfferMapper::mapFromJobOffer)
-                .toList();
+    public void saveJobOffersFromRemote() {
+        List<JobOffer> existingOffers = jobOfferRepository.getAllOffers();
+        if (existingOffers.isEmpty()) {
+            List<JobOffer> remoteOffers = jobOfferServiceInterface.fetchJobOffers();
+            remoteOffers.forEach(jobOfferRepository::saveJobOffer);
+        }
     }
 
-    public String saveOffer(JobOfferDto jobOfferDto) {
-        if (jobOfferDto != null) {
-            repository.save(JobOfferMapper.mapFromJobOfferDto(jobOfferDto));
-            return "Success";
-        } else {
-            return "Fail";
+    public void saveJobOffer(JobOffer jobOffer) {
+        if (jobOfferRepository.existsByUrl(jobOffer.getUrl())) {
+            throw new DuplicateKeyException("Job offer with the same URL already exists.");
         }
+        jobOfferRepository.saveJobOffer(jobOffer);
+    }
+
+    public JobOffer findJobOfferById(Long id) {
+        JobOffer jobOffer = jobOfferRepository.findJobOfferById(id);
+        if (jobOffer == null) {
+            throw new JobOfferNotFoundException("Job offer with ID " + id + " not found.");
+        }
+        return jobOffer;
     }
 }
