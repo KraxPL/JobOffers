@@ -6,4 +6,10 @@ import lombok.Getter;
 
 @Builder
 @Getter
-record JobOffer (Long id, String title, String content, String salary, String url) {}
+class JobOffer {
+    private Long id;
+    private String title;
+    private String content;
+    private String salary;
+    private String url;
+}
