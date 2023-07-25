@@ -33,6 +33,41 @@ class JobOffersFacadeTest {
         // Arrange
         when(jobOfferRepository.getAllOffers()).thenReturn(new ArrayList<>());
 
+        List<JobOffer> remoteOffers = new ArrayList<>();
+        remoteOffers.add(JobOffer.builder()
+                .id(1L)
+                .title("Software Engineer")
+                .content("We are hiring a Software Engineer...")
+                .salary("$100,000 per year")
+                .url("https://example.com/job/software-engineer")
+                .build());
+
+        remoteOffers.add(JobOffer.builder()
+                .id(2L)
+                .title("Data Scientist")
+                .content("Looking for a skilled Data Scientist...")
+                .salary("$90,000 per year")
+                .url("https://example.com/job/data-scientist")
+                .build());
+
+        remoteOffers.add(JobOffer.builder()
+                .id(3L)
+                .title("Product Manager")
+                .content("Join us as a Product Manager...")
+                .salary("$110,000 per year")
+                .url("https://example.com/job/product-manager")
+                .build());
+
+        remoteOffers.add(JobOffer.builder()
+                .id(4L)
+                .title("UX Designer")
+                .content("UX Designer needed for innovative projects...")
+                .salary("$95,000 per year")
+                .url("https://example.com/job/ux-designer")
+                .build());
+
+        when(jobOfferServiceInterface.fetchJobOffers()).thenReturn(remoteOffers);
+
         // Act
         jobOffersFacade.saveJobOffersFromRemote();
 

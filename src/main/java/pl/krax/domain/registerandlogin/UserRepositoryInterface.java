@@ -1,7 +1,9 @@
 package pl.krax.domain.registerandlogin;
 
-interface UserRepositoryInterface {
-    User findUserByUsername(String username);
+import java.util.Optional;
 
-    void saveUser(User any);
+interface UserRepositoryInterface {
+    Optional<User> findUserByUsername(String username);
+
+    User saveUser(User any);
 }
