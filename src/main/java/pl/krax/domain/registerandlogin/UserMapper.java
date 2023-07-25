@@ -2,8 +2,8 @@ package pl.krax.domain.registerandlogin;
 
 import pl.krax.domain.registerandlogin.dto.UserDto;
 
-class UserMapper {
-    public static UserDto mapFromUser(User user) {
+public class UserMapper {
+    public static UserDto mapToUserDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
